@@ -1,0 +1,50 @@
+# =============================================================================
+# GrantScout — project + dependency manifest (uv-managed)
+# Phase 1 (Claude Code): everything machine-independent. No Google tooling is
+# invoked here; `google-adk` is just a normal library dependency so the local
+# runner can execute the Workflow graph offline.
+# =============================================================================
+[project]
+name = "grantscout"
+version = "0.1.0"
+description = "Grant-discovery-and-drafting agent for African NGOs/CBOs and startups/social enterprises (ADK 2.0)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = [
+    # ADK 2.0 graph Workflow API (researcher -> matcher -> drafter -> review_gate).
+    "google-adk>=2.0.0",
+    # python-mcp-sdk — the MCP server wrapping the curated catalog + live discovery.
+    "mcp>=1.2.0",
+    # Typed data models for nodes, tool I/O, and the review schema.
+    "pydantic>=2.6",
+]
+
+[project.optional-dependencies]
+# The LLM path (gemini-flash-latest) lights up only when a key/ADC is configured.
+# In Phase 1 there is no key, so the nodes run their deterministic fallback. The
+# real Gemini connectivity check is a Phase 2 (Antigravity) step.
+llm = ["google-genai>=1.0.0"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+# Local web UI (run_web.py). Starlette + uvicorn serve the polished interface
+# that drives the same ADK graph offline (the ASGI libs the MCP SDK already uses),
+# and python-docx builds the Word (.docx) export so non-technical users get a
+# ready-to-edit document rather than Markdown.
+web = ["starlette>=0.37", "uvicorn>=0.27", "python-docx>=1.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["grantscout", "mcp_server"]
+
+[tool.pytest.ini_options]
+# Run pytest from the repo root; tests import grantscout.* / mcp_server.* directly.
+# Note: the test suite deliberately imports only the pure-Python core
+# (eligibility, security, matching, catalog search) so `pytest` is green even
+# without google-adk installed.
+pythonpath = ["."]
+asyncio_mode = "auto"
+testpaths = ["tests"]

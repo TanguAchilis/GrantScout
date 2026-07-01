@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrantScout — honest grant discovery & drafting</title>
+  <meta name="description" content="Find African grants you can actually win, with honest eligibility scoring and tailored draft sections. Never submits." />
+  <link rel="preconnect" href="/static" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%230d9488'/%3E%3Cpath d='M12 6l2 4 4 .5-3 3 .8 4-3.8-2-3.8 2 .8-4-3-3 4-.5z' fill='white'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- ============================ App bar ============================ -->
+  <header class="appbar">
+    <div class="appbar__brand">
+      <svg class="logo" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="11" class="logo__ring" />
+        <path d="M12 5.5l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" class="logo__mark" />
+      </svg>
+      <div>
+        <div class="appbar__title">GrantScout</div>
+        <div class="appbar__sub">Honest grant discovery &amp; drafting for African NGOs &amp; startups</div>
+      </div>
+    </div>
+    <div class="appbar__chips">
+      <span class="trust" title="Runs locally with no cloud calls">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/></svg>Offline
+      </span>
+      <span class="trust" title="The eligibility verdict is deterministic, not guessed by an LLM">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.5-1.4z"/></svg>Honest scoring
+      </span>
+      <span class="trust trust--accent" title="GrantScout drafts for you; it never submits applications">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg>Never submits
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ============================ Step 1: form ============================ -->
+    <section id="formView" class="stage">
+      <div class="stage__head">
+        <span class="step-dot">1</span>
+        <div>
+          <h1>Tell us about your organization</h1>
+          <p class="muted">We match your real profile against a curated catalog of African funders — and tell you honestly which you can win.</p>
+        </div>
+      </div>
+
+      <form id="orgForm" class="card form" autocomplete="off" novalidate>
+        <div class="grid">
+          <label class="field field--wide">
+            <span class="field__label">Organization name</span>
+            <input name="name" type="text" required placeholder="e.g. Maji Bora Community Initiative" />
+          </label>
+
+          <fieldset class="field field--wide">
+            <span class="field__label">Organization type</span>
+            <div class="segmented" id="orgTypeSeg" role="radiogroup" aria-label="Organization type"></div>
+          </fieldset>
+
+          <label class="field">
+            <span class="field__label">Country</span>
+            <input name="country" type="text" required placeholder="e.g. Kenya" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">Years operating</span>
+            <input name="years_operating" type="number" min="0" max="200" placeholder="e.g. 2" />
+          </label>
+
+          <label class="field">
+            <span class="field__label">Budget band <span class="opt">optional</span></span>
+            <input name="budget_band" type="text" placeholder="e.g. $50k–$250k" />
+          </label>
+
+          <label class="field" id="revenueField" hidden>
+            <span class="field__label">Revenue model <span class="opt">for startups</span></span>
+            <input name="revenue_model" type="text" placeholder="e.g. subscription, unit sales" />
+          </label>
+
+          <fieldset class="field field--wide">
+            <span class="field__label">Governance &amp; compliance</span>
+            <div class="switches">
+              <label class="switch"><input type="checkbox" name="registered" /><span class="switch__ui"></span> Legally registered</label>
+              <label class="switch"><input type="checkbox" name="has_board" /><span class="switch__ui"></span> Functioning board</label>
+              <label class="switch"><input type="checkbox" name="has_audited_accounts" /><span class="switch__ui"></span> Audited accounts</label>
+            </div>
+            <p class="hint">Funders screen on these. Leaving one off is honest — GrantScout will show it as a gap, not hide it.</p>
+          </fieldset>
+
+          <fieldset class="field field--wide">
+            <span class="field__label">Focus areas</span>
+            <div class="chips" id="focusChips" aria-label="Focus areas"></div>
+          </fieldset>
+
+          <label class="field field--wide">
+            <span class="field__label">Mission <span class="opt">one or two sentences</span></span>
+            <textarea name="mission" rows="2" placeholder="What does your organization do, and for whom?"></textarea>
+          </label>
+        </div>
+
+        <div class="form__actions">
+          <button type="button" class="btn btn-ghost" id="exampleBtn">Load example</button>
+          <button type="submit" class="btn btn-primary" id="runBtn">
+            <span class="btn__label">Find grants &amp; draft</span>
+            <span class="spinner" hidden></span>
+          </button>
+        </div>
+        <p id="formError" class="form-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <!-- ============================ Step 2: results ============================ -->
+    <section id="resultsView" class="stage" hidden>
+      <div class="stage__head">
+        <span class="step-dot">2</span>
+        <div>
+          <h1>Your matches &amp; drafts</h1>
+          <p class="muted">Fit and eligibility are scored <strong>separately</strong>. Grants you can win come first.</p>
+        </div>
+        <button class="btn btn-ghost stage__restart" id="restartBtn">← Start over</button>
+      </div>
+
+      <div id="orgSummary" class="org-summary"></div>
+      <div id="honestyBanner"></div>
+
+      <h2 class="section-title">Ranked matches</h2>
+      <div id="matches" class="matches"></div>
+
+      <div id="draftBar" class="draft-bar"></div>
+
+      <h2 class="section-title" id="draftsTitle">Draft sections &amp; human review</h2>
+      <div id="reviewMsg" class="review-msg"></div>
+      <div id="drafts" class="drafts"></div>
+
+      <div class="review-bar card">
+        <label class="field field--wide">
+          <span class="field__label">Reviewer note <span class="opt">optional</span></span>
+          <input id="reviewNote" type="text" placeholder="e.g. Approved with edits; will add real figures before use." />
+        </label>
+        <div class="review-bar__actions">
+          <p class="muted no-submit">GrantScout will <strong>not</strong> submit anything — approved drafts are yours to use.</p>
+          <button class="btn btn-primary" id="finalizeBtn">
+            <span class="btn__label">Approve &amp; finalize</span>
+            <span class="spinner" hidden></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ Step 3: finalized ============================ -->
+    <section id="finalView" class="stage" hidden>
+      <div class="stage__head">
+        <span class="step-dot step-dot--done">✓</span>
+        <div>
+          <h1>Finalized package</h1>
+          <p class="muted">Ready for you to use. Nothing was sent anywhere.</p>
+        </div>
+        <button class="btn btn-ghost stage__restart" id="restartBtn2">← Start over</button>
+      </div>
+      <div id="finalContent"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>GrantScout · Phase 1 · runs offline · drafts only, never submits ·
+      catalog consolidated from public sources — verify terms at each funder's site.</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# --- Secrets: NEVER commit a real .env (only .env.example with placeholders) ---
+.env
+.env.*
+!.env.example
+
+# --- Local state / scratch data (gitignored per spec repo_layout) ---
+data/*
+!data/.gitkeep
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Virtual envs / build ---
+.venv/
+venv/
+dist/
+build/
+
+# --- uv ---
+# Keep uv.lock committed for reproducible installs (Phase 2 dry-run wants it),
+# but ignore the local cache.
+.uv/

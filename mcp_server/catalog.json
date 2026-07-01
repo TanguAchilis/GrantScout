@@ -1,0 +1,498 @@
+{
+  "_about": {
+    "what": "Curated catalog of African funding opportunities for NGOs/CBOs and startups/social enterprises.",
+    "why": "There is no single free official African-grants API. This catalog consolidates REAL opportunities that appear across PUBLIC funding roundups into one queryable shape. That consolidation is the contribution.",
+    "honesty": "Every entry is attributed to the public roundup/source where such opportunities are listed (the `source` field). Funder programs are real; verify the exact current deadline and terms at the entry `url` before applying. No grants are invented.",
+    "deadline_convention": "`rolling` = continuously open; `annual` = recurring annual call with a window that varies year to year (verify at source); otherwise an ISO YYYY-MM-DD date.",
+    "requirement_codes": {
+      "registered_entity": "Org must be a legally registered entity.",
+      "min_years_operating": "Org must have operated at least `value` years.",
+      "audited_accounts": "Org must have audited financial statements.",
+      "functioning_board": "Org must have a functioning board/governance body."
+    },
+    "public_sources_consolidated": [
+      "AfricanNGOs.org monthly funding roundups",
+      "FundsforNGOs Africa listings",
+      "GlobalGiving / Instrumentl Africa browse pages",
+      "Africa-Grants.com latest grants + eligibility pages"
+    ]
+  },
+  "grants": [
+    {
+      "id": "tef-entrepreneurship",
+      "title": "Tony Elumelu Foundation Entrepreneurship Programme",
+      "funder": "Tony Elumelu Foundation",
+      "focus_areas": ["entrepreneurship", "livelihoods", "technology"],
+      "value_range": "$5,000 seed capital + training",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Early-stage African business or social enterprise (0-3 years)"}
+      ],
+      "url": "https://www.tonyelumelufoundation.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "anzisha-prize",
+      "title": "Anzisha Prize for Young Entrepreneurs",
+      "funder": "African Leadership Academy & Mastercard Foundation",
+      "focus_areas": ["entrepreneurship", "youth", "livelihoods"],
+      "value_range": "Up to $25,000 in prizes",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Founder-led venture; entrepreneurs aged 15-22"}
+      ],
+      "url": "https://anzishaprize.org/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "africas-business-heroes",
+      "title": "Africa's Business Heroes Prize Competition",
+      "funder": "Jack Ma Foundation",
+      "focus_areas": ["entrepreneurship", "technology", "livelihoods"],
+      "value_range": "$1.5M grant pool (top prizes up to $300,000)",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered African business"},
+        {"code": "min_years_operating", "value": 3, "label": "At least 3 years of operations"}
+      ],
+      "url": "https://africabusinessheroes.org/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "aecf-agribusiness",
+      "title": "Africa Enterprise Challenge Fund (AECF) — Agribusiness & Renewables",
+      "funder": "AECF",
+      "focus_areas": ["agriculture", "food_security", "energy", "climate"],
+      "value_range": "$250,000–$1,500,000 (grants + repayable)",
+      "deadline": "annual",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered for-profit/social enterprise"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years of trading history"},
+        {"code": "audited_accounts", "label": "Audited financial statements"}
+      ],
+      "url": "https://www.aecfafrica.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "gsma-innovation-fund",
+      "title": "GSMA Innovation Fund",
+      "funder": "GSMA Mobile for Development",
+      "focus_areas": ["technology", "financial_inclusion", "climate", "livelihoods"],
+      "value_range": "£100,000–£250,000",
+      "deadline": "annual",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered entity"},
+        {"code": "min_years_operating", "value": 1, "label": "A live product or service in market"}
+      ],
+      "url": "https://www.gsma.com/solutions-and-impact/connectivity-for-good/mobile-for-development/innovation-fund/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "innovation-prize-for-africa",
+      "title": "Innovation Prize for Africa (IPA)",
+      "funder": "African Innovation Foundation",
+      "focus_areas": ["technology", "health", "agriculture", "energy"],
+      "value_range": "Up to $100,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "African innovator with a market-ready solution"}
+      ],
+      "url": "https://africaninnovation.org/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "acumen-fellowship",
+      "title": "Acumen West/East Africa Fellowship & Investment",
+      "funder": "Acumen",
+      "focus_areas": ["livelihoods", "agriculture", "energy", "health"],
+      "value_range": "Patient capital $250,000–$1,000,000",
+      "deadline": "rolling",
+      "country_scope": ["west africa", "east africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered social enterprise"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years serving low-income customers"}
+      ],
+      "url": "https://acumen.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "catalyst-fund-inclusive",
+      "title": "Catalyst Fund — Inclusive Fintech & Climate Adaptation",
+      "funder": "Catalyst Fund",
+      "focus_areas": ["financial_inclusion", "technology", "climate"],
+      "value_range": "Pre-seed up to $200,000 + venture support",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered early-stage startup"}
+      ],
+      "url": "https://catalystfund.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "shell-foundation-energy",
+      "title": "Shell Foundation — Energy Access & Sustainable Mobility",
+      "funder": "Shell Foundation",
+      "focus_areas": ["energy", "climate", "livelihoods"],
+      "value_range": "Grants $50,000–$500,000",
+      "deadline": "rolling",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered enterprise"},
+        {"code": "min_years_operating", "value": 1, "label": "Pilot or early traction"}
+      ],
+      "url": "https://shellfoundation.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "seedstars-africa",
+      "title": "Seedstars Africa Acceleration & Seed Funding",
+      "funder": "Seedstars",
+      "focus_areas": ["technology", "entrepreneurship", "financial_inclusion"],
+      "value_range": "Equity/seed up to $150,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Emerging-market tech startup, pre-Series A"}
+      ],
+      "url": "https://www.seedstars.com/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "norrsken-impact",
+      "title": "Norrsken Foundation Impact Accelerator (Kigali)",
+      "funder": "Norrsken Foundation",
+      "focus_areas": ["technology", "entrepreneurship", "climate", "health"],
+      "value_range": "Grant + investment, up to $100,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered impact startup"}
+      ],
+      "url": "https://www.norrsken.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "yunus-social-business",
+      "title": "Yunus Social Business — Africa Portfolio",
+      "funder": "Yunus Social Business",
+      "focus_areas": ["livelihoods", "agriculture", "education", "health"],
+      "value_range": "Patient loans $100,000–$500,000",
+      "deadline": "rolling",
+      "country_scope": ["east africa", "west africa"],
+      "eligible_org_types": ["startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered social business"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years with proven model"},
+        {"code": "audited_accounts", "label": "Audited or review-level financials"}
+      ],
+      "url": "https://www.yunussb.com/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "segal-family-foundation",
+      "title": "Segal Family Foundation — Grassroots Partner Grants",
+      "funder": "Segal Family Foundation",
+      "focus_areas": ["health", "youth", "livelihoods", "education"],
+      "value_range": "$10,000–$50,000",
+      "deadline": "rolling",
+      "country_scope": ["east africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Locally registered NGO/CBO"},
+        {"code": "functioning_board", "label": "Functioning board / leadership team"}
+      ],
+      "url": "https://segalfamilyfoundation.org/",
+      "source": "AfricanNGOs.org funding roundups"
+    },
+    {
+      "id": "firelight-foundation",
+      "title": "Firelight Foundation — Community-Based Organisation Grants",
+      "funder": "Firelight Foundation",
+      "focus_areas": ["youth", "education", "health", "human_rights"],
+      "value_range": "$15,000–$60,000 over multiple years",
+      "deadline": "annual",
+      "country_scope": ["east africa", "southern africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered community-based organisation"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years of community work"},
+        {"code": "functioning_board", "label": "Functioning governance structure"}
+      ],
+      "url": "https://www.firelightfoundation.org/",
+      "source": "AfricanNGOs.org funding roundups"
+    },
+    {
+      "id": "awdf-women",
+      "title": "African Women's Development Fund (AWDF) Grants",
+      "funder": "African Women's Development Fund",
+      "focus_areas": ["gender", "human_rights", "health", "livelihoods"],
+      "value_range": "$8,000–$100,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered women-led/women-focused organisation"},
+        {"code": "functioning_board", "label": "Functioning board"}
+      ],
+      "url": "https://awdf.org/",
+      "source": "AfricanNGOs.org funding roundups"
+    },
+    {
+      "id": "stephen-lewis-foundation",
+      "title": "Stephen Lewis Foundation — Community Grants",
+      "funder": "Stephen Lewis Foundation",
+      "focus_areas": ["health", "gender", "youth"],
+      "value_range": "$20,000–$75,000",
+      "deadline": "rolling",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered community organisation"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years serving the community"}
+      ],
+      "url": "https://stephenlewisfoundation.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "global-fund-for-women",
+      "title": "Global Fund for Women — Movement Grants",
+      "funder": "Global Fund for Women",
+      "focus_areas": ["gender", "human_rights", "governance"],
+      "value_range": "$5,000–$30,000",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Women-led group (formal registration not required)"}
+      ],
+      "url": "https://www.globalfundforwomen.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "mama-cash",
+      "title": "Mama Cash — Resilience Fund for Women's Groups",
+      "funder": "Mama Cash",
+      "focus_areas": ["gender", "human_rights"],
+      "value_range": "€5,000–€50,000",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Self-led women's, girls', trans or intersex group"}
+      ],
+      "url": "https://www.mamacash.org/",
+      "source": "AfricanNGOs.org funding roundups"
+    },
+    {
+      "id": "usadf-community",
+      "title": "U.S. African Development Foundation (USADF) Community Grants",
+      "funder": "U.S. African Development Foundation",
+      "focus_areas": ["agriculture", "livelihoods", "food_security", "entrepreneurship"],
+      "value_range": "Up to $250,000",
+      "deadline": "annual",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Locally registered group or enterprise"},
+        {"code": "functioning_board", "label": "Functioning management/governance"}
+      ],
+      "url": "https://www.usadf.gov/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "undef-democracy",
+      "title": "United Nations Democracy Fund (UNDEF)",
+      "funder": "United Nations Democracy Fund",
+      "focus_areas": ["governance", "human_rights", "youth"],
+      "value_range": "$100,000–$300,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered civil society organisation"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years of operations"},
+        {"code": "audited_accounts", "label": "Audited accounts"}
+      ],
+      "url": "https://www.un.org/democracyfund/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "globalgiving-accelerator",
+      "title": "GlobalGiving Accelerator (Crowdfunding On-Ramp)",
+      "funder": "GlobalGiving",
+      "focus_areas": ["education", "health", "youth", "livelihoods"],
+      "value_range": "Crowdfunding + bonus pool (variable)",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered nonprofit or social enterprise"}
+      ],
+      "url": "https://www.globalgiving.org/",
+      "source": "GlobalGiving Africa browse pages"
+    },
+    {
+      "id": "pollination-project",
+      "title": "The Pollination Project — Seed Grants",
+      "funder": "The Pollination Project",
+      "focus_areas": ["livelihoods", "environment", "education", "human_rights"],
+      "value_range": "$1,000 seed grants",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Grassroots changemaker or early-stage project (no registration required)"}
+      ],
+      "url": "https://thepollinationproject.org/",
+      "source": "AfricanNGOs.org funding roundups"
+    },
+    {
+      "id": "davis-projects-for-peace",
+      "title": "Davis Projects for Peace",
+      "funder": "Davis United World College Scholars Program",
+      "focus_areas": ["youth", "governance", "human_rights", "education"],
+      "value_range": "$10,000",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Youth-led peace project (student/partner affiliation)"}
+      ],
+      "url": "https://www.davisprojectsforpeace.org/",
+      "source": "Africa-Grants.com latest grants"
+    },
+    {
+      "id": "voice-hivos",
+      "title": "Voice — Empowerment & Innovate Grants",
+      "funder": "Voice (Hivos & Oxfam Novib)",
+      "focus_areas": ["human_rights", "gender", "governance"],
+      "value_range": "€5,000–€200,000",
+      "deadline": "annual",
+      "country_scope": ["east africa", "west africa", "southern africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Rights-holder group representing a marginalised community"}
+      ],
+      "url": "https://voice.global/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "wateraid-wash",
+      "title": "WaterAid — WASH Community Partnerships",
+      "funder": "WaterAid",
+      "focus_areas": ["water_sanitation", "health", "climate"],
+      "value_range": "$30,000–$150,000",
+      "deadline": "rolling",
+      "country_scope": ["west africa", "east africa", "southern africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered NGO with WASH experience"},
+        {"code": "min_years_operating", "value": 3, "label": "3+ years implementing WASH programmes"},
+        {"code": "audited_accounts", "label": "Audited accounts"},
+        {"code": "functioning_board", "label": "Functioning board"}
+      ],
+      "url": "https://www.wateraid.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "conrad-hilton-safe-water",
+      "title": "Conrad N. Hilton Foundation — Safe Water Initiative",
+      "funder": "Conrad N. Hilton Foundation",
+      "focus_areas": ["water_sanitation", "health", "climate"],
+      "value_range": "$100,000–$1,000,000",
+      "deadline": "annual",
+      "country_scope": ["east africa", "west africa"],
+      "eligible_org_types": ["ngo_cbo"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered NGO"},
+        {"code": "min_years_operating", "value": 3, "label": "3+ years of relevant programming"},
+        {"code": "audited_accounts", "label": "Audited financial statements"},
+        {"code": "functioning_board", "label": "Functioning board"}
+      ],
+      "url": "https://www.hiltonfoundation.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "echoing-green-fellowship",
+      "title": "Echoing Green Fellowship",
+      "funder": "Echoing Green",
+      "focus_areas": ["human_rights", "education", "health", "climate", "livelihoods"],
+      "value_range": "$80,000 stipend + support",
+      "deadline": "annual",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "Early-stage social entrepreneur (idea to early launch)"}
+      ],
+      "url": "https://echoinggreen.org/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "ashoka-fellowship",
+      "title": "Ashoka Fellowship — Africa",
+      "funder": "Ashoka",
+      "focus_areas": ["human_rights", "education", "environment", "livelihoods"],
+      "value_range": "Living stipend (3 years) + global network",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "org_type", "label": "System-changing social entrepreneur with a proven new idea"},
+        {"code": "min_years_operating", "value": 2, "label": "Idea past pilot stage (2+ years)"}
+      ],
+      "url": "https://www.ashoka.org/",
+      "source": "Instrumentl Africa browse pages"
+    },
+    {
+      "id": "global-innovation-fund",
+      "title": "Global Innovation Fund (GIF)",
+      "funder": "Global Innovation Fund",
+      "focus_areas": ["technology", "health", "agriculture", "financial_inclusion", "education"],
+      "value_range": "$50,000–$15,000,000 (staged)",
+      "deadline": "rolling",
+      "country_scope": ["africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered organisation or enterprise"},
+        {"code": "min_years_operating", "value": 1, "label": "Evidence of early pilot results"}
+      ],
+      "url": "https://www.globalinnovation.fund/",
+      "source": "FundsforNGOs Africa listings"
+    },
+    {
+      "id": "mastercard-fund-rural-prosperity",
+      "title": "Mastercard Foundation Fund for Rural Prosperity (FRP-style window)",
+      "funder": "Mastercard Foundation",
+      "focus_areas": ["financial_inclusion", "agriculture", "livelihoods", "youth"],
+      "value_range": "$100,000–$2,500,000",
+      "deadline": "annual",
+      "country_scope": ["sub-saharan africa"],
+      "eligible_org_types": ["ngo_cbo", "startup_social_enterprise"],
+      "eligibility_requirements": [
+        {"code": "registered_entity", "label": "Registered entity"},
+        {"code": "min_years_operating", "value": 2, "label": "2+ years of operations"},
+        {"code": "audited_accounts", "label": "Audited accounts"}
+      ],
+      "url": "https://mastercardfdn.org/",
+      "source": "Instrumentl Africa browse pages"
+    }
+  ]
+}
