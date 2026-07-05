@@ -25,3 +25,6 @@ build/
 # Keep uv.lock committed for reproducible installs (Phase 2 dry-run wants it),
 # but ignore the local cache.
 .uv/
+
+# --- MS Office lock/temp files (created while a document is open) ---
+~$*
