@@ -89,7 +89,35 @@ A straight spine, no branching. The matcher calls the MCP `search_grants` tool
 
 ---
 
-## The two MCP tools (`mcp_server/`)
+## The MCP server (`mcp_server/`) — what it is and why we built one
+
+**Why MCP instead of just calling a Python function.** The matcher needs one
+capability: "given a profile, find candidate grants." We could have hard-wired
+that as an in-process function call and stopped there — it would have worked
+for this repo alone. We built a real **MCP server** instead, for reasons that
+matter beyond this one demo:
+
+- **The tool becomes reusable, not repo-locked.** `search_grants` and
+  `discover_grants` speak the standard MCP protocol over stdio, so *any*
+  MCP-aware client — Claude Desktop, another ADK agent, a future GrantScout CLI,
+  a totally different assistant — can call the same catalog without importing
+  a line of this codebase. The grant data stops being an implementation detail
+  of one agent and becomes a queryable capability other tools can plug into.
+- **It forces a clean, enforced contract at the boundary.** MCP tools declare
+  typed inputs, so `validate_search_args` rejects a malformed call
+  (`ValueError`) before it ever touches the catalog. That boundary discipline
+  is exactly what you want between "stuff an LLM might call" and "stuff that
+  actually mutates or reads state" — it is real, not decorative, security
+  surface.
+- **It's the natural place to put risk containment.** The MCP tool is the
+  choke point where untrusted data (the live web, for `discover_grants`) enters
+  the system. Putting the prompt-injection screen and PII scrub *inside the
+  tool* means every caller gets the safety for free, instead of everyone who
+  ever calls the function having to remember to sanitize afterward.
+- **It's the course concept the capstone asks agents to demonstrate.** Building
+  a standalone, protocol-compliant server (rather than a convenience function)
+  is what actually exercises "MCP server" as a skill, not just as a buzzword in
+  the README.
 
 | Tool | Backing | What it does |
 |------|---------|--------------|
@@ -102,9 +130,14 @@ Run the server standalone (speaks MCP over stdio):
 python -m mcp_server.server
 ```
 
-The same search/discovery implementations (`catalog_search.py`, `discovery.py`)
-back both the MCP server **and** the in-process matcher, so the contract is
-identical whether called over MCP or directly.
+**Why the matcher doesn't spawn that subprocess.** The graph needs to run
+offline, deterministically, and fast (including in CI, with no network and no
+child process). So `catalog_search.py` and `discovery.py` hold the actual
+logic once, and two things sit on top of it: the MCP server (`server.py`,
+stdio, for any external MCP client) and the in-process matcher (direct Python
+call, for the graph). Same validation, same screening, same output shape,
+either way — the MCP layer is a real, independently-runnable protocol server,
+not a facade that only works when this one agent calls it.
 
 ---
 

@@ -44,14 +44,17 @@ Both audiences (NGOs/CBOs and startups/social enterprises) run through one pipel
 - **drafter** produces two grounded sections per selected grant. Anything the organization must supply (beneficiary numbers, budgets, evidence) is an explicit `[ORG TO PROVIDE]` marker; the LLM is used only to polish prose, and a guard rejects any polish that drops a marker.
 - **review_gate** is a real ADK `RequestInput` pause (a `FunctionNode` with `rerun_on_resume=True`). The human's approve/edit/reject decision resumes the graph, and this node is the *only* writer of `state.finalized`.
 
-### MCP server
+### MCP server: what it is, and why we built one instead of a plain function call
 
-`mcp_server/server.py` (FastMCP, stdio) exposes two tools:
+The matcher's core need is simple: given a profile, find candidate grants. We could have wired that as an in-process function and stopped there. Instead we built a standalone **MCP server** (`mcp_server/server.py`, FastMCP, stdio), for reasons beyond satisfying a checklist item:
 
-- `search_grants(focus_areas, country, org_type, max_deadline)` filters the curated catalog. Each grant carries structured `eligibility_requirements` (`{code, value, label}` records) so eligibility can be decided deterministically, plus a `source` attribution and funder URL.
-- `discover_grants(focus_areas, country)` is an optional live-web freshness layer over public roundup pages. Every fetched description is screened for prompt injection and scrubbed of PII before it is returned; it is off by default and fails closed (returns `[]`) so it can never break the catalog spine.
+- **Reusability beyond this repo.** MCP is a protocol, not a library import. Any MCP-aware client (Claude Desktop, another ADK agent, a future GrantScout CLI) can call `search_grants` without depending on GrantScout's Python at all. The catalog becomes a shared capability, not a private implementation detail.
+- **An enforced contract at the boundary.** MCP tools declare typed inputs, so malformed calls are rejected (`ValueError`) before they touch the catalog — real boundary discipline between "things an LLM might invoke" and "things that actually read state."
+- **A natural choke point for risk containment.** `discover_grants` is where untrusted web data enters the system. Putting the prompt-injection screen and PII scrub *inside the tool* means every caller gets that safety automatically, rather than depending on each caller remembering to sanitize afterward.
 
-The same implementations back both the MCP server and the in-process matcher, so the tool contract is identical over MCP or direct calls.
+It exposes two tools: `search_grants(focus_areas, country, org_type, max_deadline)` filters the curated catalog, returning structured `eligibility_requirements` (`{code, value, label}` records) plus a `source` attribution and funder URL for each grant. `discover_grants(focus_areas, country)` is the optional live-web freshness layer described above; it fails closed (returns `[]`) so it can never break the catalog spine.
+
+The graph itself still needs to run offline and deterministically (including in CI, no network, no subprocess), so the actual filtering logic lives once in `catalog_search.py`/`discovery.py`; the MCP server and the in-process matcher are both thin callers of that same logic, with identical validation and screening either way. The MCP layer is a real, independently runnable protocol server, not a facade that only works when this one agent calls it.
 
 ### The honesty mechanism (the most important part)
 
