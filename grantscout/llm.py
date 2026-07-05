@@ -20,8 +20,16 @@ The key is read from the environment (never hardcoded); see security.py / config
 from __future__ import annotations
 
 import os
+import time
 
 from grantscout.config import MODEL
+
+# Light retry for transient rate limits. Free/low tiers return HTTP 429
+# (RESOURCE_EXHAUSTED) under bursts; a couple of backed-off retries recover most
+# of those without failing the run. Hard failures still fall back to None so the
+# deterministic spine keeps working.
+_MAX_RETRIES = 2
+_INITIAL_BACKOFF_S = 2.0
 
 
 def llm_available() -> bool:
@@ -55,17 +63,27 @@ def complete(prompt: str, *, system: str | None = None) -> str | None:
     try:
         from google import genai
         from google.genai import types
-
-        client = genai.Client()
-        contents = prompt if system is None else f"{system}\n\n{prompt}"
-        resp = client.models.generate_content(
-            model=MODEL,
-            contents=contents,
-            config=types.GenerateContentConfig(temperature=0.3),
-        )
-        return (resp.text or "").strip() or None
     except Exception:
-        # Never let an LLM/network error break the deterministic spine. We do NOT
-        # swallow node-control exceptions here — this is an isolated helper, not a
-        # node body, so catching broadly is safe and keeps the pipeline running.
         return None
+
+    client = genai.Client()
+    contents = prompt if system is None else f"{system}\n\n{prompt}"
+    backoff = _INITIAL_BACKOFF_S
+    for attempt in range(_MAX_RETRIES + 1):
+        try:
+            resp = client.models.generate_content(
+                model=MODEL,
+                contents=contents,
+                config=types.GenerateContentConfig(temperature=0.3),
+            )
+            return (resp.text or "").strip() or None
+        except Exception as exc:  # isolated helper, not a node body — safe to catch
+            msg = str(exc).lower()
+            is_rate_limit = "429" in msg or "resource_exhausted" in msg or "quota" in msg
+            if is_rate_limit and attempt < _MAX_RETRIES:
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+            # Never let an LLM/network error break the deterministic spine; the
+            # caller falls back to deterministic output when we return None.
+            return None

@@ -19,6 +19,9 @@ facts; the deterministic fallback guarantees the same grounding offline.
 """
 from __future__ import annotations
 
+import json
+import re
+
 from google.adk.agents.context import Context
 from google.adk.events.event import Event
 
@@ -79,18 +82,37 @@ def _funder_alignment(profile: OrgProfile, match: Match) -> str:
     )
 
 
-def _maybe_polish(text: str, profile: OrgProfile, grant: Grant) -> str:
-    """Let the LLM improve readability WITHOUT adding facts. Offline -> unchanged."""
-    polished = complete(
-        "Improve the flow of this grant section. Do NOT add any facts, numbers, or "
-        "claims not already present. PRESERVE every '[ORG TO PROVIDE]' marker "
-        "exactly. Return only the revised section:\n\n" + text,
-        system="You are an honest grant-writing assistant. Never invent facts.",
+def _polish_pair(problem: str, alignment: str) -> tuple[str, str]:
+    """Polish BOTH sections of a grant in ONE LLM call (half the calls vs. one per
+    section). Returns (problem, alignment). Falls back to the deterministic input
+    for either section if the LLM is unavailable, the JSON is malformed, or a
+    marker was dropped — grounding is never sacrificed for prose.
+    """
+    prompt = (
+        "Improve the writing flow of these two grant sections. Do NOT add any "
+        "facts, numbers, or claims not already present. PRESERVE every "
+        "'[ORG TO PROVIDE]' marker exactly. Return ONLY compact JSON of the form "
+        '{"problem": "...", "alignment": "..."} with no other text.\n\n'
+        f"PROBLEM:\n{problem}\n\nALIGNMENT:\n{alignment}"
     )
-    # Guard: if the model dropped the markers, keep the deterministic version.
-    if polished and polished.count(PROVIDE) >= text.count(PROVIDE):
-        return polished
-    return text
+    raw = complete(
+        prompt,
+        system="You are an honest grant-writing assistant. Never invent facts. Output JSON only.",
+    )
+    if not raw:
+        return problem, alignment
+    match = re.search(r"\{.*\}", raw, re.DOTALL)  # tolerate code fences / stray text
+    if not match:
+        return problem, alignment
+    try:
+        data = json.loads(match.group(0))
+        p, a = data.get("problem"), data.get("alignment")
+    except (ValueError, TypeError):
+        return problem, alignment
+    # Keep a polished section only if it's a string AND preserves its markers.
+    p_ok = isinstance(p, str) and p.count(PROVIDE) >= problem.count(PROVIDE)
+    a_ok = isinstance(a, str) and a.count(PROVIDE) >= alignment.count(PROVIDE)
+    return (p if p_ok else problem, a if a_ok else alignment)
 
 
 def drafter(ctx: Context) -> Event:
@@ -106,8 +128,9 @@ def drafter(ctx: Context) -> Event:
         if not match:
             continue
         grant = match.grant
-        problem = _maybe_polish(_problem_statement(profile, grant), profile, grant)
-        alignment = _maybe_polish(_funder_alignment(profile, match), profile, grant)
+        problem, alignment = _polish_pair(
+            _problem_statement(profile, grant), _funder_alignment(profile, match)
+        )
         drafts.append(
             Draft(
                 id=f"{gid}::{DRAFT_SECTION_TYPES[0]}",

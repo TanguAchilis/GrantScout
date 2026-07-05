@@ -60,20 +60,25 @@ def _gather_grants(profile: OrgProfile) -> list[Grant]:
     return [Grant.model_validate(r) for r in by_id.values()]
 
 
-def _rationale(match: Match) -> str:
-    """One honest line per match. LLM-phrased when available, else templated."""
-    base_facts = (
+def _base_rationale(match: Match) -> str:
+    """Deterministic, always-honest one-liner (fit + eligibility + gaps)."""
+    return (
         f"Grant '{match.grant.title}' by {match.grant.funder}. "
         f"Focus fit {match.fit_score:.0%}. Eligibility: {match.eligibility_status}. "
         f"Gaps: {'; '.join(match.gaps) if match.gaps else 'none'}."
     )
+
+
+def _rationale(match: Match) -> str:
+    """LLM-phrased honest summary, falling back to the deterministic base."""
+    base = _base_rationale(match)
     polished = complete(
         "In ONE sentence, neutrally summarize this match for the applicant. Do "
         "not overstate readiness; if there are gaps, mention them honestly:\n"
-        f"{base_facts}",
+        f"{base}",
         system="You are an honest grants advisor. Never flatter; never hide gaps.",
     )
-    return polished or base_facts
+    return polished or base
 
 
 def matcher(ctx: Context) -> Event:
@@ -86,12 +91,18 @@ def matcher(ctx: Context) -> Event:
 
     grants = _gather_grants(profile)
     ranked = rank_matches(profile, grants)
-    for m in ranked:
-        m.rationale = _rationale(m)
 
     # Which grants to draft: honor the human's explicit choice if provided
     # (profile.preferred_grant_ids), else auto-pick the top winnable grants.
     selected = select_grant_ids(ranked, profile.preferred_grant_ids, _MAX_SELECTED)
+    selected_set = set(selected)
+
+    # Cost/quota: only spend an LLM call to phrase a rationale for the grants we
+    # are actually drafting; every other match gets the deterministic (still
+    # honest) one-liner. This cuts a typical run from ~one-call-per-grant to a
+    # couple of calls, and the eligibility verdict is unaffected either way.
+    for m in ranked:
+        m.rationale = _rationale(m) if m.grant.id in selected_set else _base_rationale(m)
 
     n_elig = sum(1 for m in ranked if m.eligibility_status == "eligible")
     n_gaps = sum(1 for m in ranked if m.eligibility_status == "gaps")
