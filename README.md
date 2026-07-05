@@ -76,6 +76,19 @@ A straight spine, no branching. The matcher calls the MCP `search_grants` tool
 
 ---
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Org profile form](submission/screenshots/01_profile_form.png) | ![Ranked matches](submission/screenshots/02_ranked_matches.png) |
+| **1 · Profile** — honest governance switches; leaving one off becomes a visible gap, not a hidden lie. | **2 · Ranked matches** — fit and eligibility scored separately; two 100%-focus-fit funders ranked *last*, each with its exact fix list. |
+| ![Review gate](submission/screenshots/03_drafts_review_gate.png) | ![Finalized package](submission/screenshots/04_finalized_package.png) |
+| **3 · Human review gate** — drafted sections with highlighted `[ORG TO PROVIDE]` markers; approve / edit / reject each. | **4 · Finalized** — "3 approved, 1 rejected", stamped **NOT SUBMITTED**, Word (.docx) downloads per grant. |
+
+![Architecture](submission/screenshots/05_architecture.png)
+
+---
+
 ## The two MCP tools (`mcp_server/`)
 
 | Tool | Backing | What it does |
