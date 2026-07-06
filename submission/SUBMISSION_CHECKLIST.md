@@ -5,13 +5,16 @@ Competition: [AI Agents: Intensive Vibe Coding Capstone Project](https://www.kag
 
 ## Done (in this repo)
 
-- [x] Writeup text ready to paste: `submission/WRITEUP.md` (~1,450 words; limit is 2,500)
-- [x] Cover image (required by Kaggle): `submission/screenshots/cover_image.png` (1200×675)
+- [x] Writeup text ready to paste: `submission/WRITEUP.md` (~1,600 words; limit is 2,500)
+- [x] Cover image (required by Kaggle): `submission/screenshots/cover_image.png` (4800×2700, 16:9)
 - [x] App screenshots for the media gallery: `submission/screenshots/01–04_*.png`
 - [x] Architecture diagram (judges ask for one in video + writeup): `submission/screenshots/05_architecture.png`
 - [x] Submission document with everything embedded: `submission/GrantScout_Kaggle_Submission.docx`
 - [x] Tests green (39 passed), no API keys anywhere in the repo, Phase 2 changes committed
 - [x] README covers problem, solution, architecture, setup — worth 20 of the 100 points
+- [x] `LICENSE` file (MIT, matching `pyproject.toml`) — added 2026-07-06
+- [x] Video script with narration + per-beat timing: `submission/VIDEO_SCRIPT.md`
+- [x] Silent demo screen-recording for the video's demo segment: `submission/video/demo_footage.mp4`
 
 ## To do (only you can do these)
 
@@ -20,12 +23,11 @@ Competition: [AI Agents: Intensive Vibe Coding Capstone Project](https://www.kag
    gh repo create grantscout --public --source . --push
    ```
    (or create the repo on github.com and `git remote add origin … && git push -u origin master`)
-2. **Record the video (≤5 minutes) and publish it on YouTube** (public or unlisted). Suggested beats, matching the 10-point video rubric:
-   - Problem (30s): scattered African grant data + the over-optimism trap
-   - Why agents (20s)
-   - Architecture (45s): show `05_architecture.png`
-   - Demo (2.5 min): web UI run — form → honesty banner → the two 100%-fit-but-not-yet-eligible grants ranked last → review gate edit/reject → NOT SUBMITTED package → .docx download
-   - The build (45s): **show Antigravity + agents-cli on screen** — Antigravity is a rubric concept that can ONLY be demonstrated in the video; also flash the security tests
+2. **Record the video (≤5 minutes) and publish it on YouTube** (public or unlisted).
+   Everything is prepared in **`submission/VIDEO_SCRIPT.md`**: full narration text timed to 4:50,
+   plus ready demo footage (`submission/video/demo_footage.mp4`) paced to the script's demo beat.
+   You only need to (a) record the narration, (b) screen-record the ~40s Antigravity/agents-cli/pytest
+   segment (Beat 5 — Antigravity can ONLY be demonstrated in the video), and (c) assemble in Clipchamp.
 3. **Create the Kaggle Writeup**: New Writeup on the competition page → paste `WRITEUP.md` content → set title/subtitle → **select track: Agents for Good**.
 4. **Fill the two placeholders** in the writeup: YouTube link + GitHub repo link.
 5. **Media gallery**: upload `cover_image.png` (set as cover), screenshots 01–05, and attach the YouTube video.

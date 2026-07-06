@@ -301,3 +301,7 @@ roundups (AfricanNGOs.org, FundsforNGOs, GlobalGiving/Instrumentl, Africa-Grants
 Each entry carries a `source` attribution and the funder's `url`. **Verify the exact
 current deadline and terms at the source before applying.** No grants are invented.
 This is a discovery aid over public data, not a scrape of a paywalled product.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
