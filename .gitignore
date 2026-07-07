@@ -27,4 +27,5 @@ build/
 .uv/
 
 # --- MS Office lock/temp files (created while a document is open) ---
+.claude/
 ~$*
