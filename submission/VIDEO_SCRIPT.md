@@ -10,7 +10,7 @@ Record narration over the visuals listed per beat. On Windows 11 you can assembl
 |---|---|
 | `submission/screenshots/cover_image.png` | Beat 1 title card |
 | `submission/screenshots/05_architecture.png` | Beat 3 architecture |
-| `submission/video/demo_footage.mp4` (silent screen recording, 2:14, **explanatory captions baked in** — Cameroon example org) | Beat 4 demo |
+| `submission/video/demo_footage.mp4` (silent screen recording, 2:23, **explanatory captions baked in** — Cameroon example org, recorded with the **Gemini-live** path) | Beat 4 demo |
 | **You must screen-record yourself:** Antigravity with this project open, `agents-cli` in a terminal, `uv run pytest -q` output | Beat 5 build |
 
 ---
@@ -34,7 +34,7 @@ Record narration over the visuals listed per beat. On Windows 11 you can assembl
 > The researcher normalizes the profile and scrubs PII before any model sees it. The matcher calls a real MCP server — search_grants — over a curated catalog of thirty source-attributed African grants, and here's the key design decision: **eligibility pass-fail is decided in plain Python, never by the LLM.** Language models round up — they tell a hopeful NGO it "looks eligible". Our verdict is deterministic, unit-tested, and can't be talked into a yes. The LLM only explains the gaps.
 > The review gate is a real ADK RequestInput pause — the graph genuinely suspends until a human decides.
 
-## Beat 4 — Demo — 1:35–3:50
+## Beat 4 — Demo — 1:35–4:00
 **Show:** `submission/video/demo_footage.mp4`. It has explanatory **captions baked in**, so it works even while you breathe between lines — the narration below adds color on top; nudge clips ±2s in the editor if needed.
 
 *(footage: profile form, governance switches — note the "Gemini live" badge top-right)*
@@ -55,7 +55,7 @@ Record narration over the visuals listed per beat. On Windows 11 you can assembl
 *(footage: finalized package, NOT SUBMITTED, Word downloads, start over)*
 > The finalized package is stamped **NOT SUBMITTED** — GrantScout has no submission capability at all. It exports to Word, all together or one file per grant, and hands the real next steps back to a human.
 
-## Beat 5 — The build (Antigravity + agents-cli) — 3:50–4:35
+## Beat 5 — The build (Antigravity + agents-cli) — 4:00–4:40
 **Show (record yourself — this is the only place these can be demonstrated):**
 1. **Antigravity** with this project open — show the agent panel doing a real task (e.g. ask it to explain `grantscout/agent.py`); make sure the Antigravity branding is visible on screen. (~20s)
 2. A terminal running `agents-cli info` or showing `agents-cli-manifest.yaml`. (~8s)
@@ -63,7 +63,7 @@ Record narration over the visuals listed per beat. On Windows 11 you can assembl
 
 > GrantScout was vibe-coded in two phases. Phase one built everything machine-independent against a written spec — the graph, the MCP server, the eligibility engine, and a thirty-nine test suite covering the security screens. Phase two, here in Antigravity with the Google Agents CLI, wired up the real Gemini calls with quota-aware retry, plus the Agent Runtime deployment target in the manifest.
 
-## Beat 6 — Close — 4:35–4:50
+## Beat 6 — Close — 4:40–4:55
 **Show:** back to `cover_image.png`, or the NOT SUBMITTED final screen.
 
 > For organizations whose scarcest resource is time, an honest "not yet — and here's what to fix" is worth more than a flattering maybe. Building that honesty into the architecture, not the prompt, is what makes an agent trustworthy. Thanks for watching.
