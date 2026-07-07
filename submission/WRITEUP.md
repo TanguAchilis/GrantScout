@@ -4,8 +4,8 @@
 
 **Track:** Agents for Good
 
-**Video:** [PASTE YOUTUBE LINK]
-**Code:** [PASTE PUBLIC GITHUB REPO LINK]
+**Video:** https://youtu.be/hzK0wQ3HpFg
+**Code:** https://github.com/TanguAchilis/GrantScout
 
 ---
 
@@ -60,7 +60,7 @@ The graph itself still needs to run offline and deterministically (including in 
 
 **Eligibility pass/fail is decided in plain Python (`grantscout/eligibility.py`), never by the LLM.** Whether an org meets a funder's hard requirements — right org type, in scope country, legally registered, 3+ years operating, audited accounts, functioning board — is a factual, checkable question. Language models reliably round up: they tell a hopeful NGO it "looks eligible" because the framing rewards optimism. That is precisely the failure this project exists to avoid, so the verdict lives where it is auditable, unit-tested, and cannot be talked into a yes. The LLM only *explains* gaps in plain language.
 
-There are three honest outcomes: **eligible** (meets every hard requirement), **gaps** (fails a *fixable* requirement — "not yet eligible", with a concrete action list), and **ineligible** (fails a *structural* one — stated plainly, ranked last). You can see the mechanism working in the screenshots: WaterAid and the Conrad N. Hilton Safe Water Initiative come back at **100% focus fit but ranked last**, each with the exact fixes shown ("Requires 3+ years operating; you reported 2", "Requires audited accounts; you do not report having them"). A conventional matcher would have put those two at the top and cost the org weeks.
+There are three honest outcomes: **eligible** (meets every hard requirement), **gaps** (fails a *fixable* requirement — "not yet eligible", with a concrete action list), and **ineligible** (fails a *structural* one — stated plainly, ranked last). You can see the mechanism working in the screenshots: WaterAid and the Conrad N. Hilton Safe Water Initiative come back at **100% focus fit but ranked last**, each with the exact fixes shown ("Requires 3+ years operating; you reported 2", "Requires audited accounts; you do not report having them"). A conventional matcher would have put those two at the top and cost the org weeks. The video demo runs a different profile — a two-year-old Cameroonian youth-livelihoods NGO — and the same mechanism fires there: the Mastercard Foundation Fund for Rural Prosperity comes back at 100% fit but "not yet eligible" for want of audited accounts. The honesty is a property of the engine, not a canned demo.
 
 ### Security
 
