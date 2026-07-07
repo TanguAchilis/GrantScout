@@ -27,4 +27,7 @@ build/
 .uv/
 
 # --- MS Office lock/temp files (created while a document is open) ---
+submission/*
+!submission/screenshots/
+!submission/video/
 ~$*

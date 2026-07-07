@@ -1,6 +1,6 @@
-# GrantScout — honest grant discovery & drafting for African NGOs and social enterprises
+# GrantScout: honest African grant finder
 
-**Subtitle:** An ADK 2.0 multi-agent pipeline that finds African grants you can actually win, drafts the two highest-value application sections, and pauses for human review. It surfaces eligibility gaps honestly and never submits anything.
+**Subtitle:** An ADK 2.0 multi-agent pipeline that finds African grants you can actually win, drafts the two key sections honestly, and never submits.
 
 **Track:** Agents for Good
 
