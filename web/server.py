@@ -2,7 +2,8 @@
 GrantScout web UI — Starlette backend.
 
 This serves a single-page interface (web/static/) and exposes a thin JSON API that
-drives the SAME ADK 2.0 Workflow graph the CLI uses, entirely offline:
+drives the SAME ADK 2.0 Workflow graph the CLI uses (Gemini prose when a key is
+configured, deterministic fallback otherwise):
 
     POST /api/run       {OrgInput}            -> runs researcher->matcher->drafter,
                                                  pauses at the review gate, returns
@@ -40,7 +41,8 @@ from google.adk.runners import InMemoryRunner  # noqa: E402
 from google.genai import types  # noqa: E402
 
 from grantscout.agent import app as adk_app  # noqa: E402
-from grantscout.config import FOCUS_AREAS, ORG_TYPES  # noqa: E402
+from grantscout.config import FOCUS_AREAS, MODEL, ORG_TYPES  # noqa: E402
+from grantscout.llm import llm_available  # noqa: E402
 from grantscout.models import OrgInput, ReviewDecision  # noqa: E402
 from grantscout.nodes.review_gate import REVIEW_MESSAGE  # noqa: E402
 
@@ -64,9 +66,16 @@ async def index(request):
 
 
 async def meta(request):
-    """Form vocabularies, sorted for stable display."""
+    """Form vocabularies (sorted for stable display) + which LLM mode is active,
+    so the UI badge can say honestly whether Gemini is writing the prose."""
+    live = llm_available()
     return JSONResponse(
-        {"focus_areas": sorted(FOCUS_AREAS), "org_types": sorted(ORG_TYPES)}
+        {
+            "focus_areas": sorted(FOCUS_AREAS),
+            "org_types": sorted(ORG_TYPES),
+            "llm_live": live,
+            "model": MODEL if live else None,
+        }
     )
 
 

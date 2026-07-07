@@ -1,12 +1,14 @@
 """
-GrantScout local runner — runs ONE full pipeline turn entirely offline.
+GrantScout local runner — runs ONE full pipeline turn locally.
 
     researcher -> matcher -> drafter -> [PAUSE: human review] -> finalize
 
 It drives the real ADK 2.0 Workflow graph via InMemoryRunner: it streams the
 first pass until the review gate suspends (an `adk_request_input` interrupt),
 SIMULATES a human approval (a function_response keyed by the interrupt id), then
-resumes to finalize. No cloud, no API key, no submission.
+resumes to finalize. With a GOOGLE_API_KEY (exported or in `.env`) Gemini writes
+the prose; with no key it runs fully offline on deterministic fallbacks. It
+never submits anything either way.
 
 Run:
     python run_local.py            # add GRANTSCOUT_FORCE_COLOR=1 to force color when piped
@@ -22,6 +24,11 @@ from __future__ import annotations
 
 import asyncio
 import warnings
+
+# Bridge `.env` -> os.environ before any grantscout module checks credentials.
+from grantscout.env import load_env
+
+load_env()
 
 from google.genai import types
 

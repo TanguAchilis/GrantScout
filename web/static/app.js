@@ -39,6 +39,13 @@ async function init() {
   } catch {
     META = { focus_areas: ["health", "education", "agriculture", "climate", "water_sanitation", "gender", "youth"], org_types: ["ngo_cbo", "startup_social_enterprise"] };
   }
+  // Honest mode badge: say "Gemini live" only when a key is actually configured.
+  if (META.llm_live) {
+    const label = $("#modeBadgeLabel");
+    const badge = $("#modeBadge");
+    if (label) label.textContent = "Gemini live";
+    if (badge) badge.title = `${META.model || "Gemini"} writes the prose — eligibility decisions stay deterministic Python`;
+  }
   buildOrgTypeSeg();
   buildFocusChips();
   $("#orgForm").addEventListener("submit", onRun);

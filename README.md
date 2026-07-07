@@ -230,10 +230,13 @@ uv run python run_web.py         # then open http://127.0.0.1:8000
   color, aligned, grouped output (set `GRANTSCOUT_FORCE_COLOR=1` to keep color when
   piping). Good for demos and CI.
 
-With **no API key set**, the three reasoning nodes use their deterministic
-fallbacks, so the catalog + eligibility + review-gate spine runs end-to-end
-locally. Set `GOOGLE_API_KEY` (see `.env.example`) to light up the LLM prose path
-— that real connectivity is a **Phase 2** step.
+**LLM prose path:** copy `.env.example` to `.env` and set `GOOGLE_API_KEY` —
+both runners load `.env` automatically (`grantscout/env.py`) and the header
+badge switches to **Gemini live**. Gemini then writes the draft prose and match
+rationales (the eligibility verdict stays deterministic Python either way).
+With **no key set**, the three reasoning nodes fall back to deterministic
+generation, so the catalog + eligibility + review-gate spine still runs
+end-to-end offline — which is also what keeps the test suite hermetic.
 
 To also pull live web results into the matcher (network required):
 

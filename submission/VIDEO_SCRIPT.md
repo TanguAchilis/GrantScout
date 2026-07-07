@@ -37,11 +37,11 @@ Record narration over the visuals listed per beat. On Windows 11 you can assembl
 ## Beat 4 — Demo — 1:35–3:50
 **Show:** `submission/video/demo_footage.mp4`. It has explanatory **captions baked in**, so it works even while you breathe between lines — the narration below adds color on top; nudge clips ±2s in the editor if needed.
 
-*(footage: profile form, governance switches)*
-> Everything you're seeing runs locally, no API key. I describe my organization once — Jeunesse Avenir Cameroun, a youth-livelihoods NGO in Bafoussam, Cameroon: two years old, registered, with a board, but **no audited accounts yet**. These governance switches are honesty switches — leaving one off becomes a visible gap, not a hidden lie.
+*(footage: profile form, governance switches — note the "Gemini live" badge top-right)*
+> Everything you're seeing runs locally, with live Gemini calls writing the prose — see the badge. I describe my organization once — Jeunesse Avenir Cameroun, a youth-livelihoods NGO in Bafoussam, Cameroon: two years old, registered, with a board, but **no audited accounts yet**. These governance switches are honesty switches — leaving one off becomes a visible gap, not a hidden lie.
 
 *(footage: results appear, honesty banner)*
-> One click, and the graph runs. Top of the results: the honesty banner. One grant is a *perfect* focus fit — and GrantScout tells me straight that I'm **not eligible for it yet**.
+> One click, and the graph runs — researcher, matcher against the MCP catalog, then Gemini drafting grounded prose. Top of the results: the honesty banner. One grant is a *perfect* focus fit — and GrantScout tells me straight that I'm **not eligible for it yet**.
 
 *(footage: scrolling ranked matches — eligible tier, then the gaps tier)*
 > Matches are ranked with fit and eligibility scored separately. Grants we can win today come first — like the GlobalGiving Accelerator, one hundred percent fit *and* eligible. And down here, ranked lower on purpose: the Mastercard Foundation's Fund for Rural Prosperity — one hundred percent focus fit, but it requires audited accounts we don't have, and it says so, with the exact fix. That verdict comes from deterministic Python, not from a model that can be flattered into a yes.
